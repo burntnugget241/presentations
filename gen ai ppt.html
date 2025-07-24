@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generative AI: From Concept to Daily Impact</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        :root {
+            --bg-dark: #111827;
+            --bg-light: #f9fafb;
+            --primary-accent: #4f46e5;
+            --primary-accent-hover: #4338ca;
+            --secondary-accent: #10b981;
+            --text-light: #f3f4f6;
+            --text-dark: #1f2937;
+            --text-muted: #9ca3af;
+            --border-color: #374151;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            overflow: hidden; /* Prevents scrollbars during slide transitions */
+        }
+
+        #presentation-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
+            transform: translateX(50px);
+        }
+
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0);
+            z-index: 10;
+        }
+        
+        .slide.exiting {
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+
+        .slide-content {
+            width: 100%;
+            max-width: 1100px;
+            padding: 4rem 2rem;
+            margin: auto;
+        }
+        
+        /* Animated Gradient Background for Title Slide */
+        .animated-gradient {
+            background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #111827);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Custom styles for prompt details */
+        details > summary {
+            padding: 0.75rem 1rem;
+            background-color: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        details > summary:hover {
+            background-color: #f3f4f6;
+        }
+        details[open] > summary {
+            background-color: #f3f4f6;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        details > div {
+            padding: 1rem;
+            border: 1px solid #e5e7eb;
+            border-top: none;
+            border-bottom-left-radius: 0.5rem;
+            border-bottom-right-radius: 0.5rem;
+            background-color: #ffffff;
+        }
+        details summary .chevron {
+            transition: transform 0.3s;
+        }
+        details[open] summary .chevron {
+            transform: rotate(180deg);
+        }
+
+        /* Spinner */
+        .spinner {
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top: 2px solid #ffffff;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            animation: spin 1s linear infinite;
+        }
+        .spinner-dark {
+             border: 2px solid rgba(0, 0, 0, 0.1);
+             border-top: 2px solid var(--primary-accent);
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Quiz Styles */
+        .quiz-option {
+            transition: all 0.2s ease-in-out;
+        }
+        .quiz-option:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        .quiz-option.correct {
+            background-color: #d1fae5;
+            border-color: #10b981;
+        }
+        .quiz-option.incorrect {
+            background-color: #fee2e2;
+            border-color: #ef4444;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div id="presentation-container">
+        <!-- Slide 1: Title -->
+        <section id="slide1" class="slide active animated-gradient text-white flex-col justify-center items-center text-center p-4">
+            <div>
+                <h1 class="text-6xl md:text-8xl font-extrabold tracking-tight">Generative AI</h1>
+                <p class="mt-4 text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto">From Foundational Concepts to Transformative Daily Impact</p>
+                <div class="mt-16 border-t border-gray-600 pt-6">
+                    <p class="text-lg font-medium">Soham Lad</p>
+                    <p class="text-md text-gray-400">Digital Hub Of Treasury Solutions</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 2: What is Generative AI? -->
+        <section id="slide2" class="slide bg-white flex-col justify-center">
+            <div class="slide-content">
+                <h2 class="text-4xl font-bold text-gray-800 mb-8">What is Generative AI?</h2>
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <p class="text-lg text-gray-600 leading-relaxed mb-6">
+                            Generative Artificial Intelligence (AI) is a branch of AI that can <span class="font-semibold text-indigo-600">create new, original content</span>. Unlike traditional AI that analyzes or acts on existing data, generative models produce novel outputs like text, images, music, and code.
+                        </p>
+                        <p class="text-lg text-gray-600 leading-relaxed">
+                            They learn patterns from vast datasets and use that knowledge to generate statistically probable, yet entirely new, artifacts.
+                        </p>
+                    </div>
+                    <div class="space-y-6">
+                        <div class="flex items-center bg-gray-50 p-4 rounded-xl shadow-sm border">
+                            <svg class="w-8 h-8 text-indigo-500 mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                            <div>
+                                <h3 class="font-semibold text-lg">Text Generation</h3>
+                                <p class="text-gray-500">Emails, articles, marketing copy</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center bg-gray-50 p-4 rounded-xl shadow-sm border">
+                            <svg class="w-8 h-8 text-indigo-500 mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            <div>
+                                <h3 class="font-semibold text-lg">Image Creation</h3>
+                                <p class="text-gray-500">Art, product mockups, photo editing</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center bg-gray-50 p-4 rounded-xl shadow-sm border">
+                            <svg class="w-8 h-8 text-indigo-500 mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                            <div>
+                                <h3 class="font-semibold text-lg">Code Generation</h3>
+                                <p class="text-gray-500">Functions, scripts, unit tests</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 3: Data Visuals -->
+        <section id="slide3" class="slide bg-gray-100 flex-col justify-center">
+            <div class="slide-content">
+                <h2 class="text-4xl font-bold text-gray-800 mb-10 text-center">The Unprecedented Growth of Generative AI</h2>
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div class="bg-white p-6 rounded-xl shadow-md border">
+                        <h3 class="text-xl font-semibold text-center mb-4">Gen AI Corporate Adoption</h3>
+                        <canvas id="adoptionChart"></canvas>
+                        <p class="text-xs text-center text-gray-500 mt-2">Data based on industry trends. <a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai-in-2023-generative-ais-breakout-year" target="_blank" class="hover:underline text-indigo-600">Source: McKinsey</a></p>
+                    </div>
+                    <div class="space-y-8">
+                        <div class="bg-white p-6 rounded-xl shadow-md text-center border">
+                            <h3 class="text-xl font-semibold text-gray-700">Knowledge Worker Productivity</h3>
+                            <p class="text-6xl font-bold text-indigo-600 mt-2" data-target="40">0%</p>
+                            <p class="text-gray-500 mt-2">Average improvement in task quality and speed. 
+                                <a href="https://www.hbs.edu/faculty/Pages/item.aspx?num=64700" target="_blank" class="text-xs text-indigo-600 hover:underline">(Source: HBS/BCG)</a>
+                            </p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-md text-center border">
+                            <h3 class="text-xl font-semibold text-gray-700">Market Size Projection</h3>
+                            <p class="text-6xl font-bold text-indigo-600 mt-2" data-target="1.3">0T</p>
+                            <p class="text-gray-500 mt-2">Projected market size by 2032. 
+                                <a href="https://www.bloomberg.com/company/press/generative-ai-to-become-a-1-3-trillion-market-by-2032-research-finds/" target="_blank" class="text-xs text-indigo-600 hover:underline">(Source: Bloomberg)</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: Project Showcase -->
+        <section id="slide4" class="slide bg-white flex-col justify-center">
+            <div class="slide-content">
+                <h2 class="text-4xl font-bold text-gray-800 mb-2">Project Showcase: AI for Scripting</h2>
+                <p class="text-xl text-indigo-600 font-semibold mb-8">A Framework for Reliable Groovy Script Generation</p>
+                <div class="grid md:grid-cols-2 gap-8 items-start">
+                    <div class="bg-gray-50 p-6 rounded-xl shadow-inner border">
+                        <h3 class="text-2xl font-bold mb-4">Key Contribution</h3>
+                        <p class="text-gray-600">
+                            The project introduces a structured, eight-part prompting framework to ensure prompts are detailed, comprehensive, and lead to accurate, functional, and maintainable code.
+                        </p>
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Writing Effective Task Statements</h3>
+                        <details>
+                            <summary>Task Objective <span class="chevron"><svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg></span></summary>
+                            <div class="text-sm"><p><strong>Description:</strong> Define what the script needs to accomplish.</p><p class="mt-1"><strong>Example:</strong> “Convert &lt;Prtry&gt; tags to &lt;Cd&gt; tags in an XML document.”</p></div>
+                        </details>
+                        <details>
+                            <summary>Input Context <span class="chevron"><svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg></span></summary>
+                            <div class="text-sm"><p><strong>Description:</strong> Explain source data, file types, or background.</p><p class="mt-1"><strong>Example:</strong> “Processes ISO 20022 payment messages (pain.001).”</p></div>
+                        </details>
+                        <details>
+                            <summary>References / Exemplars <span class="chevron"><svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg></span></summary>
+                            <div class="text-sm"><p><strong>Description:</strong> Provide sample scripts or input/output examples.</p><p class="mt-1"><strong>Example:</strong> “See attached script for replacing &lt;MmbId&gt; with &lt;BIC&gt;.”</p></div>
+                        </details>
+                        <details>
+                            <summary>Constraints & Rules <span class="chevron"><svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg></span></summary>
+                            <div class="text-sm"><p><strong>Description:</strong> Specify requirements like preserving values.</p><p class="mt-1"><strong>Example:</strong> “Only change &lt;Prtry&gt; under &lt;Purp&gt;, preserve original value.”</p></div>
+                        </details>
+                        <details>
+                            <summary>User Role & Perspective <span class="chevron"><svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg></span></summary>
+                            <div class="text-sm"><p><strong>Description:</strong> Describe your role to adjust technical depth.</p><p class="mt-1"><strong>Example:</strong> “I am a payment systems consultant with SWIFT/ISO expertise.”</p></div>
+                        </details>
+                        <details>
+                            <summary>Output Format & Style <span class="chevron"><svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg></span></summary>
+                            <div class="text-sm"><p><strong>Description:</strong> Detail output format and coding style.</p><p class="mt-1"><strong>Example:</strong> “Self-contained Groovy function ready to deploy.”</p></div>
+                        </details>
+                        <details>
+                            <summary>Edge Cases & Exceptions <span class="chevron"><svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg></span></summary>
+                            <div class="text-sm"><p><strong>Description:</strong> Mention special cases or exceptions to handle.</p><p class="mt-1"><strong>Example:</strong> “Handle missing &lt;Prtry&gt; values gracefully without crashing.”</p></div>
+                        </details>
+                        <details>
+                            <summary>Final Use or Goal <span class="chevron"><svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg></span></summary>
+                            <div class="text-sm"><p><strong>Description:</strong> State the script’s purpose or goal.</p><p class="mt-1"><strong>Example:</strong> “Auto-convert XML files for core banking APIs.”</p></div>
+                        </details>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 5: The Result of a Good Prompt -->
+        <section id="slide5" class="slide bg-white flex-col justify-center">
+            <div class="slide-content">
+                <h2 class="text-4xl font-bold text-gray-800 mb-8 text-center">Why Good Prompts Matter: The Result</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Bad Prompt Result -->
+                    <div class="bg-red-50 border-2 border-red-200 p-6 rounded-xl">
+                        <h3 class="text-2xl font-bold text-red-700 mb-4">Bad Prompt:</h3>
+                        <p class="bg-white p-3 rounded-md border text-gray-700 font-mono text-sm">"Write a marketing email."</p>
+                        <h3 class="text-2xl font-bold text-red-700 mt-6 mb-4">Result:</h3>
+                        <div class="bg-white p-4 rounded-md border text-gray-600 text-sm">
+                            <p><strong>Subject: Our Product</strong></p>
+                            <p>Hello,</p>
+                            <p>Check out our new product. It has many features and can help your business. We think you will like it.</p>
+                            <p>Click here to buy.</p>
+                            <p>Thanks,</p>
+                            <p>Company</p>
+                        </div>
+                    </div>
+                    <!-- Good Prompt Result -->
+                    <div class="bg-green-50 border-2 border-green-200 p-6 rounded-xl">
+                        <h3 class="text-2xl font-bold text-green-700 mb-4">Good Prompt:</h3>
+                        <p class="bg-white p-3 rounded-md border text-gray-700 font-mono text-sm">"Write a marketing email for 'FlowState', a new productivity app. Target busy professionals. Highlight AI scheduling and focus mode. Use an enthusiastic but professional tone. CTA is 'Start your free trial'."</p>
+                        <h3 class="text-2xl font-bold text-green-700 mt-6 mb-4">Result:</h3>
+                        <div class="bg-white p-4 rounded-md border text-gray-600 text-sm">
+                            <p><strong>Subject: Reclaim Your Time with FlowState</strong></p>
+                            <p>Hi [Name],</p>
+                            <p>Tired of juggling meetings and distractions? FlowState is a new app designed to help busy professionals like you achieve deep work and streamline your day.</p>
+                            <p>Our AI-powered scheduling finds the optimal time for your tasks, while our 'Focus Mode' silences distractions so you can truly concentrate.</p>
+                            <p>Ready to boost your productivity? Start your free trial today!</p>
+                            <p>Best,</p>
+                            <p>The FlowState Team</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 6: Bad vs Good Prompts (Interactive) -->
+        <section id="slide6" class="slide bg-gray-900 text-white flex-col justify-center">
+            <div class="slide-content">
+                <h2 class="text-4xl font-bold mb-8 text-center">The Art of the Prompt: From Vague to Valuable</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-gray-800/80 border border-gray-700 p-8 rounded-xl flex flex-col">
+                        <h3 class="text-3xl font-bold text-red-400 mb-4">Bad Prompt</h3>
+                        <p class="text-gray-300 mb-4">Enter a vague prompt below to see how AI can improve it.</p>
+                        <textarea id="badPromptInput" class="w-full bg-gray-700 text-white p-3 rounded-md h-24 text-base" placeholder="e.g., Make a chatbot for interns."></textarea>
+                        <button id="improvePromptBtn" class="mt-4 bg-indigo-600 text-white px-4 py-3 rounded-md hover:bg-indigo-700 flex items-center justify-center space-x-2 font-semibold disabled:bg-indigo-400">
+                            <span>✨ Improve Prompt</span>
+                            <div id="promptSpinner" class="spinner hidden"></div>
+                        </button>
+                    </div>
+                    <div class="bg-gray-800/80 border border-gray-700 p-8 rounded-xl">
+                        <h3 class="text-3xl font-bold text-green-400 mb-4">Good Prompt</h3>
+                        <p class="text-gray-300 mb-4">The improved, detailed prompt will appear here.</p>
+                        <div id="goodPromptOutput" class="bg-gray-900 p-4 rounded-md h-48 overflow-y-auto text-gray-200 text-sm whitespace-pre-wrap"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 7: Use Case 1 -->
+        <section id="slide7" class="slide bg-white flex-col justify-center">
+            <div class="slide-content">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Use Case 1: Internship Support Chatbot</h2>
+                <p class="text-xl text-indigo-600 font-semibold mb-8">Example of a well-defined prompt in action</p>
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div class="bg-gray-800 rounded-xl p-6 shadow-lg flex flex-col">
+                        <div class="flex-grow bg-white rounded-md p-4 flex flex-col space-y-4">
+                            <div class="flex justify-end">
+                                <p class="bg-indigo-500 text-white p-3 rounded-lg max-w-xs shadow">What's the policy on taking leave during the internship?</p>
+                            </div>
+                            <div class="flex justify-start">
+                                <p class="bg-gray-200 text-gray-800 p-3 rounded-lg max-w-xs shadow">Interns are entitled to 1 day of leave per month. Please make sure to inform your manager at least 3 days in advance by sending an email.</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex">
+                            <input type="text" placeholder="Ask a question..." class="w-full bg-gray-700 text-white rounded-l-md px-4" disabled>
+                            <button class="bg-indigo-600 text-white px-4 py-2 rounded-r-md">Send</button>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-2 text-center">Mockup of an AI chatbot interface.</p>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-xl border">
+                        <h3 class="text-xl font-bold mb-4">Extensive Sample Prompt</h3>
+                        <div class="space-y-3 text-sm text-gray-700">
+                            <details>
+                                <summary>1. Task <span class="chevron"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg></span></summary>
+                                <div><p><strong>Objective:</strong> Develop the system prompt for a RAG-based AI chatbot. The bot must answer intern questions using an internal knowledge base.
+                                <br><strong>Tech Stack:</strong> React frontend (Vercel), Python FastAPI backend (AWS Lambda), Gemini API, and Pinecone vector DB.</p></div>
+                            </details>
+                            <details>
+                                <summary>2. Context <span class="chevron"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg></span></summary>
+                                <div><p><strong>Background:</strong> Our company onboards 50+ interns every quarter. This chatbot will be the first point of contact to reduce HR workload.</p></div>
+                            </details>
+                             <details>
+                                <summary>3. Exemplar <span class="chevron"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg></span></summary>
+                                <div><p><strong>Sample Interaction:</strong> User: "Hi, can I work from home?" Chatbot: "According to the internship policy, remote work is not permitted except in cases of medical emergencies with prior approval from your manager."</p></div>
+                            </details>
+                            <details>
+                                <summary>4. Persona <span class="chevron"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg></span></summary>
+                                <div><p><strong>Role:</strong> You are a helpful and professional HR assistant for interns. Your name is 'UniBot'.</p></div>
+                            </details>
+                            <details>
+                                <summary>5. Format <span class="chevron"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg></span></summary>
+                                <div><p><strong>Output Format:</strong> A single block of text representing the system prompt that will define the chatbot's behavior. Use bullet points for lists.</p></div>
+                            </details>
+                            <details>
+                                <summary>6. Tone <span class="chevron"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg></span></summary>
+                                <div><p><strong>Style:</strong> Professional, friendly, and supportive. Avoid overly casual language.</p></div>
+                            </details>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Slide 8: Use Case 2 -->
+        <section id="slide8" class="slide bg-white flex-col justify-center">
+            <div class="slide-content">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Use Case 2: Creative Project Management</h2>
+                <p class="text-xl text-indigo-600 font-semibold mb-8">Generating structured data from natural language</p>
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div class="bg-gray-50 rounded-xl p-6 border flex flex-col">
+                        <h3 class="text-xl font-bold mb-4">Project Description</h3>
+                        <textarea id="ganttDescription" class="w-full bg-white text-gray-800 p-3 rounded-md h-32 border text-base" placeholder="Describe your project plan. e.g., 'Our project has a discovery phase with 2 weeks of research and 1 week of design. Then a 4-week development phase...'"></textarea>
+                        <button id="generateGanttBtn" class="mt-4 bg-indigo-600 text-white px-4 py-3 rounded-md hover:bg-indigo-700 flex items-center justify-center space-x-2 font-semibold disabled:bg-indigo-400">
+                            <span>✨ Generate Gantt Chart</span>
+                            <div id="ganttSpinner" class="spinner hidden"></div>
+                        </button>
+                    </div>
+                    <div class="bg-white rounded-xl p-6 shadow-lg border flex flex-col justify-center items-center">
+                        <h3 class="text-gray-800 font-semibold mb-4 text-center">Generated Project Timeline</h3>
+                        <div id="ganttOutput" class="w-full">
+                            <div class="mermaid">
+gantt
+    title App Launch Plan
+    dateFormat  YYYY-MM-DD
+    section Discovery
+    Research           :done, 2024-01-10, 14d
+    UX/UI Design       :done, 2024-01-24, 10d
+    section Development
+    Frontend Dev       :active, 2024-02-05, 30d
+    Backend Dev        :2024-02-05, 30d
+    section Testing & Launch
+    QA Testing         :2024-03-07, 14d
+    Launch             :2024-03-21, 1d
+                            </div>
+                        </div>
+                        <p id="ganttMessage" class="text-xs text-gray-400 mt-4 text-center">Default example. Describe your project to generate a new chart.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 9: Use Case 3: Email Assistant -->
+        <section id="slide9" class="slide bg-white flex-col justify-center">
+            <div class="slide-content">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Use Case 3: Professional Email Assistant</h2>
+                <p class="text-xl text-indigo-600 font-semibold mb-8">Accelerate your daily communications</p>
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div class="bg-gray-50 rounded-xl p-6 border flex flex-col">
+                        <h3 class="text-xl font-bold mb-4">Email Key Points</h3>
+                        <textarea id="emailPoints" class="w-full bg-white text-gray-800 p-3 rounded-md h-48 border text-base" placeholder="Enter key points for your email. For example:&#10;- Follow up on Q3 results meeting&#10;- Attach the final report&#10;- Schedule a brief call for next week"></textarea>
+                        <button id="generateEmailBtn" class="mt-4 bg-indigo-600 text-white px-4 py-3 rounded-md hover:bg-indigo-700 flex items-center justify-center space-x-2 font-semibold disabled:bg-indigo-400">
+                            <span>✨ Draft Email</span>
+                            <div id="emailSpinner" class="spinner hidden"></div>
+                        </button>
+                    </div>
+                    <div class="bg-white rounded-xl p-6 shadow-lg border flex flex-col">
+                        <h3 class="text-gray-800 font-semibold mb-4 text-center">Generated Email Draft</h3>
+                        <div id="emailOutput" class="w-full h-64 bg-gray-50 rounded-md p-4 border overflow-y-auto whitespace-pre-wrap">
+                            <p class="text-gray-500">Your drafted email will appear here.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 10: Dos and Don'ts -->
+        <section id="slide10" class="slide bg-white flex-col justify-center">
+            <div class="slide-content">
+                <h2 class="text-4xl font-bold text-gray-800 mb-8 text-center">Responsible & Effective Use</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-green-50 border-2 border-green-200 p-8 rounded-xl">
+                        <div class="flex items-center mb-4">
+                            <svg class="w-10 h-10 text-green-500 mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <h3 class="text-3xl font-bold text-green-700">What To Do</h3>
+                        </div>
+                        <ul class="space-y-4 text-gray-700 text-lg">
+                            <li class="flex items-start"><span class="font-bold text-green-600 mr-3 mt-1">&#10003;</span><span><strong class="font-semibold">Augment, Don't Replace:</strong> Use as a tool to enhance skills and accelerate workflow.</span></li>
+                            <li class="flex items-start"><span class="font-bold text-green-600 mr-3 mt-1">&#10003;</span><span><strong class="font-semibold">Verify and Validate:</strong> Always treat AI output as a first draft. Fact-check and test.</span></li>
+                            <li class="flex items-start"><span class="font-bold text-green-600 mr-3 mt-1">&#10003;</span><span><strong class="font-semibold">Prompt Precisely:</strong> Invest time in crafting detailed, contextual prompts.</span></li>
+                        </ul>
+                    </div>
+                    <div class="bg-red-50 border-2 border-red-200 p-8 rounded-xl">
+                        <div class="flex items-center mb-4">
+                            <svg class="w-10 h-10 text-red-500 mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <h3 class="text-3xl font-bold text-red-700">What Not To Do</h3>
+                        </div>
+                        <ul class="space-y-4 text-gray-700 text-lg">
+                            <li class="flex items-start"><span class="font-bold text-red-600 mr-3 mt-1">&#10007;</span><span><strong class="font-semibold">Trust Blindly:</strong> Avoid using it as the sole source of truth. AI can "hallucinate".</span></li>
+                            <li class="flex items-start"><span class="font-bold text-red-600 mr-3 mt-1">&#10007;</span><span><strong class="font-semibold">Input Sensitive Data:</strong> Do not enter confidential or personal info into public AI models.</span></li>
+                            <li class="flex items-start"><span class="font-bold text-red-600 mr-3 mt-1">&#10007;</span><span><strong class="font-semibold">Assume Originality:</strong> Generated content can be unintentionally similar to existing work.</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Slide 11: Interactive Quiz -->
+        <section id="slide11" class="slide bg-gray-100 flex-col justify-center">
+            <div class="slide-content text-center">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Knowledge Check!</h2>
+                <p id="quizQuestion" class="text-xl text-gray-600 mb-8">Which of the following is a recommended practice when using Generative AI?</p>
+                <div id="quizOptions" class="max-w-2xl mx-auto space-y-4">
+                    <button data-correct="false" class="quiz-option w-full text-left bg-white p-4 rounded-lg border-2 border-gray-200 font-semibold text-lg">A) Entering sensitive personal information for better results.</button>
+                    <button data-correct="true" class="quiz-option w-full text-left bg-white p-4 rounded-lg border-2 border-gray-200 font-semibold text-lg">B) Verifying the AI's output and treating it as a first draft.</button>
+                    <button data-correct="false" class="quiz-option w-full text-left bg-white p-4 rounded-lg border-2 border-gray-200 font-semibold text-lg">C) Using the generated content directly in a final report without review.</button>
+                </div>
+                <p id="quizFeedback" class="mt-6 text-xl font-medium h-8"></p>
+            </div>
+        </section>
+        
+        <!-- Slide 12: Q&A -->
+        <section id="slide12" class="slide bg-gray-900 text-white flex-col justify-center items-center text-center p-4">
+            <div>
+                <h1 class="text-7xl font-bold">Q&A</h1>
+                <p class="mt-4 text-2xl text-gray-300">Thank You</p>
+                <div class="mt-12">
+                    <p class="text-lg">Contact: lad@unicc.org</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Navigation -->
+    <div class="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-sm border-t border-gray-200 p-4 flex justify-center items-center space-x-4 z-20">
+        <button id="prevBtn" class="bg-gray-700 text-white px-6 py-2 rounded-md hover:bg-gray-800 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors font-semibold">Previous</button>
+        <span id="slide-counter" class="text-gray-700 font-medium text-lg w-20 text-center">1 / 12</span>
+        <button id="nextBtn" class="bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700 disabled:bg-indigo-400 transition-colors font-semibold">Next</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- PRESENTATION MODE SWITCH ---
+            // Set to 'true' for a guaranteed error-free demo with pre-written examples.
+            // Set to 'false' to make live API calls (requires a valid API key below).
+            const PRESENTATION_MODE = false;
+
+            // --- API KEY ---
+            // Get your free key from https://aistudio.google.com/app/apikey and paste it here.
+            const apiKey = "AIzaSyAUfTKjimt9Wdpn0usb0LjcdFr0Z76ltog";
+
+
+            mermaid.initialize({ startOnLoad: false, theme: 'base', themeVariables: {
+                'primaryColor': '#ffffff',
+                'primaryTextColor': '#111827',
+                'primaryBorderColor': '#e5e7eb',
+                'lineColor': '#374151',
+                'textColor': '#374151',
+                'fontSize': '14px'
+            }});
+
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const slideCounter = document.getElementById('slide-counter');
+            let currentSlide = 0;
+            const totalSlides = slides.length;
+
+            async function showSlide(index) {
+                const oldSlide = slides[currentSlide];
+                if (oldSlide) {
+                    oldSlide.classList.add('exiting');
+                    setTimeout(() => {
+                        oldSlide.classList.remove('active', 'exiting');
+                    }, 600);
+                }
+
+                currentSlide = index;
+                const newSlide = slides[index];
+                
+                newSlide.classList.add('active');
+                
+                slideCounter.textContent = `${index + 1} / ${totalSlides}`;
+                prevBtn.disabled = index === 0;
+                nextBtn.disabled = index === totalSlides - 1;
+
+                if (newSlide.id === 'slide3' && !newSlide.dataset.animated) {
+                    renderChart();
+                    document.querySelectorAll('#slide3 [data-target]').forEach(el => {
+                        animateValue(el, 0, parseFloat(el.dataset.target), 1500);
+                    });
+                    newSlide.dataset.animated = 'true';
+                }
+                
+                if (newSlide.id === 'slide8') {
+                    await mermaid.run({ querySelector: '#ganttOutput .mermaid' });
+                }
+
+                if (newSlide.id === 'slide11') {
+                    resetQuiz();
+                }
+            }
+
+            prevBtn.addEventListener('click', () => {
+                if (currentSlide > 0) showSlide(currentSlide - 1);
+            });
+
+            nextBtn.addEventListener('click', () => {
+                if (currentSlide < totalSlides - 1) showSlide(currentSlide + 1);
+            });
+            
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight' && !nextBtn.disabled) nextBtn.click();
+                else if (e.key === 'ArrowLeft' && !prevBtn.disabled) prevBtn.click();
+            });
+
+            function animateValue(element, start, end, duration) {
+                let startTimestamp = null;
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    const currentValue = progress * (end - start) + start;
+                    if (end % 1 !== 0) {
+                         element.textContent = currentValue.toFixed(1) + 'T';
+                    } else {
+                         element.textContent = Math.floor(currentValue) + '%';
+                    }
+                    if (progress < 1) window.requestAnimationFrame(step);
+                };
+                window.requestAnimationFrame(step);
+            }
+
+            function renderChart() {
+                const ctx = document.getElementById('adoptionChart').getContext('2d');
+                if(window.adoptionChartInstance) window.adoptionChartInstance.destroy();
+                window.adoptionChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['2021', '2022', '2023', '2024 (Est.)'],
+                        datasets: [{
+                            label: 'Companies Experimenting with Gen AI (%)',
+                            data: [15, 35, 60, 75],
+                            backgroundColor: 'rgba(79, 70, 229, 0.8)',
+                            borderColor: 'rgba(79, 70, 229, 1)',
+                            borderWidth: 1,
+                            borderRadius: 5
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: { y: { beginAtZero: true, max: 100 } },
+                        plugins: { legend: { display: false } }
+                    }
+                });
+            }
+
+            // --- Quiz Logic ---
+            const quizOptions = document.getElementById('quizOptions');
+            const quizFeedback = document.getElementById('quizFeedback');
+            quizOptions.addEventListener('click', (e) => {
+                if (e.target.tagName === 'BUTTON') {
+                    const isCorrect = e.target.dataset.correct === 'true';
+                    Array.from(quizOptions.children).forEach(btn => {
+                        btn.disabled = true;
+                        if (btn.dataset.correct === 'true') btn.classList.add('correct');
+                    });
+                    e.target.classList.add(isCorrect ? 'correct' : 'incorrect');
+                    quizFeedback.textContent = isCorrect ? "Correct! Verification is key." : "Not quite. Always verify AI outputs.";
+                    quizFeedback.style.color = isCorrect ? '#10b981' : '#ef4444';
+                }
+            });
+
+            function resetQuiz() {
+                quizFeedback.textContent = '';
+                Array.from(quizOptions.children).forEach(btn => {
+                    btn.disabled = false;
+                    btn.classList.remove('correct', 'incorrect');
+                });
+            }
+
+            // --- Gemini API Integration ---
+            async function callGemini(prompt) {
+                if (PRESENTATION_MODE) return null;
+                if (!apiKey || apiKey === "") {
+                    console.error("API Key is missing.");
+                    return null;
+                }
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+                const payload = {
+                    contents: [{ role: "user", parts: [{ text: prompt }] }]
+                };
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    if (!response.ok) {
+                        console.error("API call failed with status:", response.status);
+                        return null; // Return null on failure
+                    }
+                    const result = await response.json();
+                    if (result.candidates?.[0]?.content?.parts?.[0]) {
+                        return result.candidates[0].content.parts[0].text;
+                    } else {
+                        console.error("Unexpected API response:", result);
+                        return null; // Return null on unexpected structure
+                    }
+                } catch (error) {
+                    console.error("Gemini API Error:", error);
+                    return null; // Return null on network or other errors
+                }
+            }
+
+            // Feature 1: Improve Prompt
+            const improvePromptBtn = document.getElementById('improvePromptBtn');
+            const badPromptInput = document.getElementById('badPromptInput');
+            const goodPromptOutput = document.getElementById('goodPromptOutput');
+            const promptSpinner = document.getElementById('promptSpinner');
+            improvePromptBtn.addEventListener('click', async () => {
+                const badPrompt = badPromptInput.value;
+                if (!badPrompt.trim()) {
+                    goodPromptOutput.textContent = "Please enter a prompt to improve.";
+                    return;
+                }
+                promptSpinner.classList.remove('hidden');
+                improvePromptBtn.disabled = true;
+                goodPromptOutput.textContent = 'Generating...';
+                const systemPrompt = `You are an expert prompt engineer. Rewrite the following vague user prompt to be a detailed, effective prompt for a generative AI. The new prompt must be structured with these six parts: 1. Task, 2. Context, 3. Exemplar, 4. Persona, 5. Format, 6. Tone. Make the output clear and well-structured, using markdown for headings.\n\nVague prompt: "${badPrompt}"`;
+                
+                const improvedPrompt = await callGemini(systemPrompt);
+
+                if (improvedPrompt) {
+                    goodPromptOutput.textContent = improvedPrompt;
+                } else {
+                    goodPromptOutput.textContent = `// API call failed. Showing a sample response. //\n\n**1. Task:**\nCreate a system prompt for an AI chatbot designed to help new interns during their onboarding process.\n\n**2. Context:**\nThe chatbot will be the primary source of information for company policies, HR questions, and IT setup guides. It needs to be accurate and reliable to reduce the workload on the HR team.\n\n**3. Exemplar:**\n*User Query:* "What's the dress code?"\n*Good Response:* "Our company has a business casual dress code. This generally means slacks or khakis, blouses or collared shirts. Jeans are acceptable on Fridays. Please avoid t-shirts with large logos or athletic wear."\n\n**4. Persona:**\nAct as a friendly, patient, and knowledgeable HR assistant named 'OnboardBot'.\n\n**5. Format:**\nProvide clear and concise answers. Use bullet points to list steps or options where applicable.\n\n**6. Tone:**\nMaintain a professional yet welcoming and supportive tone.`;
+                }
+
+                promptSpinner.classList.add('hidden');
+                improvePromptBtn.disabled = false;
+            });
+
+            // Feature 2: Generate Gantt Chart
+            const generateGanttBtn = document.getElementById('generateGanttBtn');
+            const ganttDescription = document.getElementById('ganttDescription');
+            const ganttOutput = document.getElementById('ganttOutput');
+            const ganttSpinner = document.getElementById('ganttSpinner');
+            const ganttMessage = document.getElementById('ganttMessage');
+            generateGanttBtn.addEventListener('click', async () => {
+                const description = ganttDescription.value;
+                if (!description.trim()) {
+                    ganttMessage.textContent = "Please describe your project plan.";
+                    return;
+                }
+                ganttSpinner.classList.remove('hidden');
+                generateGanttBtn.disabled = true;
+                ganttMessage.textContent = 'Generating chart...';
+                const systemPrompt = `You are an expert in project management and MermaidJS. Convert the following project description into a valid MermaidJS Gantt chart syntax. The output must be ONLY the MermaidJS code block, starting with "gantt". Do not include any other text or explanations like \`\`\`mermaid. Use YYYY-MM-DD for dates and assume today is ${new Date().toISOString().slice(0, 10)}.\n\nProject description: "${description}"`;
+                const mermaidCode = await callGemini(systemPrompt);
+                if (mermaidCode) {
+                    const cleanedCode = mermaidCode.replace(/```mermaid/g, '').replace(/```/g, '').trim();
+                    ganttOutput.innerHTML = `<div class="mermaid">${cleanedCode}</div>`;
+                    ganttMessage.textContent = 'Chart generated successfully.';
+                    await mermaid.run({ querySelector: '#ganttOutput .mermaid' });
+                } else {
+                    ganttMessage.textContent = 'API call failed. Displaying default chart.';
+                }
+                ganttSpinner.classList.add('hidden');
+                generateGanttBtn.disabled = false;
+            });
+            
+            // Feature 3: Email Assistant
+            const generateEmailBtn = document.getElementById('generateEmailBtn');
+            const emailPoints = document.getElementById('emailPoints');
+            const emailOutput = document.getElementById('emailOutput');
+            const emailSpinner = document.getElementById('emailSpinner');
+            generateEmailBtn.addEventListener('click', async () => {
+                const points = emailPoints.value;
+                if (!points.trim()) {
+                    emailOutput.textContent = 'Please enter some key points for the email.';
+                    return;
+                }
+                emailSpinner.classList.remove('hidden');
+                generateEmailBtn.disabled = true;
+                emailOutput.textContent = 'Drafting email...';
+                const prompt = `You are a professional business communication assistant. Based on the following user-provided points, draft a clear, concise, and professional email. Ensure the tone is appropriate for a corporate setting. Add a relevant subject line.\n\nUser points:\n${points}`;
+                const draftedEmail = await callGemini(prompt);
+
+                if (draftedEmail) {
+                    emailOutput.textContent = draftedEmail;
+                } else {
+                    emailOutput.textContent = `// API call failed. Showing a sample response. //\n\nSubject: Following Up: Q3 Results Meeting & Next Steps\n\nHi Team,\n\nFollowing up on our meeting today regarding the Q3 results.\n\nI've attached the final report for your review. It contains the detailed analysis and key performance indicators we discussed.\n\nTo ensure we're aligned on the next steps, I'd like to schedule a brief 15-minute call for sometime next week. Please let me know what time works best for you.\n\nBest regards,\n\n[Your Name]`;
+                }
+                
+                emailSpinner.classList.add('hidden');
+                generateEmailBtn.disabled = false;
+            });
+            
+            showSlide(currentSlide);
+        });
+    </script>
+
+</body>
+</html>

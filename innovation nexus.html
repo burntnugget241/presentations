@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentation: The Ashoka Innovation Nexus</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* A lighter, cooler gray */
+        }
+        .slide {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .slide.active {
+            display: block;
+            opacity: 1;
+        }
+        .slide-container {
+            width: 90%;
+            max-width: 1100px;
+            height: 600px;
+            margin: 2rem auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: white;
+            border-radius: 1.5rem; /* More rounded */
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            border: 1px solid #e2e8f0;
+            overflow: hidden; /* To contain background elements */
+            position: relative;
+            padding: 2rem;
+        }
+        .glass-pane {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+         .nav-button {
+            transition: all 0.2s ease-in-out;
+        }
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        
+        /* Slide 6 Animations */
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+        .pulse-ring {
+            border-radius: 9999px;
+            position: absolute;
+            border: 3px solid rgba(79, 70, 229, 0.5);
+            animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        .pulse-ring-1 { animation-delay: 0s; }
+        .pulse-ring-2 { animation-delay: 1s; }
+        .pulse-ring-3 { animation-delay: 2s; }
+
+        @keyframes draw {
+            to { stroke-dashoffset: 0; }
+        }
+        .connecting-line {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: draw 2s ease-out forwards;
+        }
+        .line-1 { animation-delay: 0.2s; }
+        .line-2 { animation-delay: 0.4s; }
+        .line-3 { animation-delay: 0.6s; }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <div id="presentation-container" class="p-4 md:p-8">
+        <!-- Slide 1: Title -->
+        <div id="slide-1" class="slide active">
+            <div class="slide-container bg-gray-900 text-white">
+                 <div class="absolute top-0 left-0 w-full h-full bg-cover opacity-20" style="background-image: url('https://www.transparenttextures.com/patterns/cubes.png');"></div>
+                 <div class="relative z-10 text-center">
+                    <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight">Project: The Ashoka Innovation Nexus</h1>
+                    <p class="mt-4 text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto">A Proposal to Forge a Self-Sustaining Ecosystem for Student-Led Innovation</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Problem Statement -->
+        <div id="slide-2" class="slide">
+            <div class="slide-container">
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 mb-6 text-center">Ashoka's Innovation Potential is <span class="text-red-500">Underserved</span></h2>
+                <p class="text-lg text-slate-600 text-center mb-8 max-w-3xl">A critical disconnect prevents ambitious ideas from becoming reality.</p>
+                <div class="grid md:grid-cols-2 gap-8 text-left w-full max-w-5xl">
+                    <div class="bg-slate-50 p-6 rounded-xl border-2 border-slate-200">
+                        <h3 class="font-bold text-xl text-slate-800">The Current State</h3>
+                        <ul class="mt-4 space-y-4 text-slate-700">
+                            <li class="flex items-start"><span class="text-blue-500 mr-3 mt-1">&#10148;</span><div><strong class="font-semibold">Fragmented Talent:</strong> "Builders" and "Architects" operate in silos.</div></li>
+                            <li class="flex items-start"><span class="text-blue-500 mr-3 mt-1">&#10148;</span><div><strong class="font-semibold">Lack of Centralized Ecosystem:</strong> No formal bridge between strategy, execution, and market access.</div></li>
+                            <li class="flex items-start"><span class="text-blue-500 mr-3 mt-1">&#10148;</span><div><strong class="font-semibold">Focus on External Opportunities:</strong> Culture directs talent towards internships over entrepreneurship.</div></li>
+                        </ul>
+                    </div>
+                    <div class="bg-red-50 p-6 rounded-xl border-2 border-red-200">
+                        <h3 class="font-bold text-xl text-red-800">The Consequence</h3>
+                        <ul class="mt-4 space-y-4 text-red-700">
+                            <li class="flex items-start"><span class="text-red-500 mr-3 mt-1">&#10007;</span><div>Ambitious, tech-enabled projects are perceived as too difficult.</div></li>
+                            <li class="flex items-start"><span class="text-red-500 mr-3 mt-1">&#10007;</span><div>Students with great ideas lack a clear, supported path to development.</div></li>
+                            <li class="flex items-start"><span class="text-red-500 mr-3 mt-1">&#10007;</span><div>We miss the immense value-add of building startups and personal projects.</div></li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="mt-8 text-center text-xl font-semibold text-slate-800">The core problem isn't a lack of talent, but a lack of connecting infrastructure.</p>
+            </div>
+        </div>
+
+        <!-- Slide 3: Competitive Landscape -->
+        <div id="slide-3" class="slide">
+            <div class="slide-container">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-6 text-center">Leading Indian Universities Foster Robust Startup Ecosystems</h2>
+                <div class="w-full max-w-6xl overflow-y-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="border-b-2 border-slate-300">
+                                <th class="p-4 font-bold text-lg text-slate-700">University</th>
+                                <th class="p-4 font-bold text-lg text-slate-700">Notable Startups</th>
+                                <th class="p-4 font-bold text-lg text-slate-700">Key Metrics & Success Factors</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-slate-200">
+                                <td class="p-4 align-top font-semibold text-lg">IIT Bombay</td>
+                                <td class="p-4 align-top grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                    <div class="flex items-center gap-2"><svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V8.618a1 1 0 01.553-.894L9 5m0 15V5m0 15l5.447 2.724A1 1 0 0015 20.382V12.618a1 1 0 00-.553-.894L9 9m-9 4h18"></path></svg> Ola Cabs</div>
+                                    <div class="flex items-center gap-2"><svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg> Quikr</div>
+                                </td>
+                                <td class="p-4 align-top text-slate-600"><strong>SINE:</strong> Supported 200+ startups, 10,000+ jobs, over $1B in funding.</td>
+                            </tr>
+                            <tr class="border-b border-slate-200">
+                                <td class="p-4 align-top font-semibold text-lg">IIT Delhi</td>
+                                <td class="p-4 align-top grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                    <div class="flex items-center gap-2"><svg class="w-6 h-6 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg> Flipkart</div>
+                                    <div class="flex items-center gap-2"><svg class="w-6 h-6 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg> Zomato</div>
+                                </td>
+                                <td class="p-4 align-top text-slate-600"><strong>FITT:</strong> Incubated 300+ companies, filed 1500+ patents.</td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 align-top font-semibold text-lg">BITS Pilani</td>
+                                <td class="p-4 align-top grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                    <div class="flex items-center gap-2"><svg class="w-6 h-6 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10l2-2h8a1 1 0 001-1z"></path></svg> Swiggy</div>
+                                    <div class="flex items-center gap-2"><svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.096 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg> GreyOrange</div>
+                                </td>
+                                <td class="p-4 align-top text-slate-600"><strong>PIEDS:</strong> Strong mentorship, seed funding, and alumni network.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="mt-8 text-center text-xl font-bold text-slate-800">A dedicated innovation ecosystem is a proven model for success.</p>
+            </div>
+        </div>
+
+        <!-- Slide 4: The Opportunity -->
+        <div id="slide-4" class="slide">
+            <div class="slide-container">
+                <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-6 text-center">The Opportunity: Tapping into India's Tech Boom</h2>
+                <div class="w-full max-w-4xl">
+                    <h3 class="text-2xl font-semibold text-center text-indigo-700 mb-6">Explosive Market Growth</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                        <div class="bg-slate-50 p-4 rounded-xl border-2 border-slate-200 flex flex-col items-center text-center gap-4">
+                            <svg class="w-16 h-16 text-indigo-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2h1a2 2 0 002-2v-1a2 2 0 012-2h1.945M7.881 4.002l.023.023a1 1 0 01-1.414 1.414l-1.414-1.414a1 1 0 011.414-1.414l.023.023zM16.119 4.002l-1.414 1.414a1 1 0 01-1.414-1.414l1.414-1.414a1 1 0 011.414 1.414zM12 2v2m0 18v-2m-8.945-8.945H5a2 2 0 01-2-2v-1a2 2 0 00-2-2H1a2 2 0 00-2 2v1a2 2 0 012 2h1.945zM23 11h-1.945a2 2 0 01-2-2v-1a2 2 0 00-2-2h-1a2 2 0 00-2 2v1a2 2 0 01-2 2H12"></path></svg>
+                            <div>
+                                <p class="font-bold text-xl">Artificial Intelligence</p>
+                                <p class="text-slate-600 mt-2">Projected to be a <span class="font-bold text-indigo-600">~$180 Billion</span> market by 2030.</p>
+                            </div>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-xl border-2 border-slate-200 flex flex-col items-center text-center gap-4">
+                            <svg class="w-16 h-16 text-indigo-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path></svg>
+                            <div>
+                                <p class="font-bold text-xl">SaaS</p>
+                                <p class="text-slate-600 mt-2">Expected to reach <span class="font-bold text-indigo-600">$30-50 Billion</span> by 2025-2030.</p>
+                            </div>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-xl border-2 border-slate-200 flex flex-col items-center text-center gap-4">
+                             <svg class="w-16 h-16 text-indigo-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            <div>
+                                <p class="font-bold text-xl">Industrial Robotics</p>
+                                <p class="text-slate-600 mt-2">Growing at <span class="font-bold text-indigo-600">~15% CAGR</span>, reaching over $8 Billion by 2030.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="mt-8 text-xs text-center text-slate-400">Sources: Grand View Research, NITI Aayog (National Strategy for AI), Invest India.</p>
+            </div>
+        </div>
+
+        <!-- Slide 5: The Ashokan Dichotomy -->
+        <div id="slide-5" class="slide">
+            <div class="slide-container">
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 mb-8 text-center">The Ashokan Dichotomy: Two Halves of a Whole</h2>
+                <div class="flex flex-col md:flex-row justify-center items-stretch gap-8 w-full max-w-5xl">
+                    <!-- The Architect -->
+                    <div class="w-full md:w-2/5 text-center p-6 bg-blue-50 border-2 border-blue-200 rounded-2xl shadow-lg flex flex-col">
+                        <svg class="w-16 h-16 mx-auto text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11.933 12.8a1 1 0 000-1.6L6.6 7.2A1 1 0 005 8v8a1 1 0 001.6.8l5.333-4zM19.933 12.8a1 1 0 000-1.6l-5.333-4A1 1 0 0013 8v8a1 1 0 001.6.8l5.333-4z"></path></svg>
+                        <h3 class="text-2xl font-bold text-blue-800 mt-4">The Architect</h3>
+                        <p class="mt-2 text-blue-700 font-medium">Entrepreneurial mindset, strategic thinking</p>
+                        <div class="mt-4 pt-4 border-t-2 border-blue-200 flex-grow">
+                            <p class="font-semibold text-slate-800">Has: Product vision, market analysis, project management.</p>
+                            <p class="font-semibold text-red-600 mt-4">Lacks: Technical ability to build complex ideas.</p>
+                        </div>
+                    </div>
+                    <!-- The Divide -->
+                    <div class="text-3xl font-bold text-slate-400 w-full md:w-1/5 text-center flex items-center justify-center">+</div>
+                    <!-- The Builder -->
+                    <div class="w-full md:w-2/5 text-center p-6 bg-green-50 border-2 border-green-200 rounded-2xl shadow-lg flex flex-col">
+                        <svg class="w-16 h-16 mx-auto text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                        <h3 class="text-2xl font-bold text-green-800 mt-4">The Builder</h3>
+                        <p class="mt-2 text-green-700 font-medium">Deep technical, coding, or engineering knowledge</p>
+                        <div class="mt-4 pt-4 border-t-2 border-green-200 flex-grow">
+                            <p class="font-semibold text-slate-800">Has: Ability to code, design hardware, build products.</p>
+                            <p class="font-semibold text-red-600 mt-4">Lacks: Structured framework to scale or define a business model.</p>
+                        </div>
+                    </div>
+                </div>
+                 <p class="mt-8 text-center text-lg font-medium text-slate-700"><strong>Internship Cell's Goal:</strong> Bridge this divide by shifting focus from *finding* opportunities to *creating* them.</p>
+            </div>
+        </div>
+
+        <!-- Slide 6: The Solution (Re-imagined) -->
+        <div id="slide-6" class="slide">
+            <div class="slide-container bg-gray-900 text-white">
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-center z-20 mb-4">The Solution: The Ashoka Innovation Nexus</h2>
+                <div class="w-full flex-grow relative">
+                    <!-- Animated Background -->
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="pulse-ring pulse-ring-1 w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96"></div>
+                        <div class="pulse-ring pulse-ring-2 w-80 h-80 sm:w-96 sm:h-96 md:w-[500px] md:h-[500px]"></div>
+                        <div class="pulse-ring pulse-ring-3 w-96 h-96 sm:w-[500px] sm:h-[500px] md:w-[650px] md:h-[650px]"></div>
+                    </div>
+
+                    <!-- Grid Layout for positioning -->
+                    <div class="relative w-full h-full grid grid-cols-5 grid-rows-5 z-20">
+                        <!-- Top Left Pod -->
+                        <div class="col-start-1 row-start-1 flex items-center justify-center">
+                            <div class="text-center glass-pane p-3 md:p-4 rounded-2xl shadow-lg">
+                                <h3 class="font-bold text-base md:text-lg text-white">Strategic Guidance</h3>
+                                <p class="text-xs md:text-sm text-slate-300">(180DC)</p>
+                            </div>
+                        </div>
+
+                        <!-- Top Right Pod -->
+                        <div class="col-start-5 row-start-1 flex items-center justify-center">
+                            <div class="text-center glass-pane p-3 md:p-4 rounded-2xl shadow-lg">
+                                <h3 class="font-bold text-base md:text-lg text-white">Technical Expertise</h3>
+                                <p class="text-xs md:text-sm text-slate-300">(Makerspace)</p>
+                            </div>
+                        </div>
+
+                        <!-- Central Hub -->
+                        <div class="col-start-3 row-start-3 flex items-center justify-center">
+                            <div class="relative text-center">
+                                <h3 class="text-4xl font-extrabold text-indigo-300">Innovation Nexus</h3>
+                                <p class="text-indigo-200 mt-2 text-lg">Student-Led Ventures</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Bottom Pod -->
+                        <div class="col-start-3 row-start-5 flex items-center justify-center">
+                             <div class="text-center glass-pane p-3 md:p-4 rounded-2xl shadow-lg">
+                                <h3 class="font-bold text-base md:text-lg text-white">Network & Opportunity</h3>
+                                <p class="text-xs md:text-sm text-slate-300">(Internship Cell)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SVG Connecting Lines -->
+                    <svg class="absolute inset-0 w-full h-full z-10" viewBox="0 0 100 100" preserveAspectRatio="none">
+                        <line x1="20" y1="20" x2="50" y2="50" stroke="#4f46e5" stroke-width="0.5" class="connecting-line line-1"/>
+                        <line x1="80" y1="20" x2="50" y2="50" stroke="#4f46e5" stroke-width="0.5" class="connecting-line line-2"/>
+                        <line x1="50" y1="80" x2="50" y2="50" stroke="#4f46e5" stroke-width="0.5" class="connecting-line line-3"/>
+                    </svg>
+                </div>
+                <p class="absolute bottom-4 text-center text-lg font-medium text-slate-400 z-20">A tripartite alliance to power every stage of a startup's journey.</p>
+            </div>
+        </div>
+
+        <!-- Slide 7: Proposed Structure & Workflow -->
+        <div id="slide-7" class="slide">
+            <div class="slide-container">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-12 text-center">Proposed Structure & Workflow</h2>
+                <div class="relative w-full max-w-5xl">
+                    <!-- The connecting line -->
+                    <div class="absolute top-8 left-0 w-full h-1 bg-slate-200 -translate-y-1/2 hidden md:block"></div>
+                    <div class="relative flex flex-col md:flex-row justify-between items-center md:items-start space-y-8 md:space-y-0">
+                        <!-- Step 1 -->
+                        <div class="text-center w-3/4 md:w-1/4">
+                             <div class="relative mb-4 flex items-center justify-center w-16 h-16 mx-auto bg-indigo-600 text-white rounded-full text-2xl font-bold border-4 border-white shadow-md z-10">1</div>
+                             <h3 class="font-semibold text-lg">Steering Committee</h3>
+                             <p class="text-sm text-slate-600">Leadership from 3 clubs define goals & vet ideas.</p>
+                        </div>
+                        <!-- Step 2 -->
+                        <div class="text-center w-3/4 md:w-1/4">
+                             <div class="relative mb-4 flex items-center justify-center w-16 h-16 mx-auto bg-indigo-600 text-white rounded-full text-2xl font-bold border-4 border-white shadow-md z-10">2</div>
+                             <h3 class="font-semibold text-lg">Innovation Hub</h3>
+                             <p class="text-sm text-slate-600">Open to any student with an idea. They apply here.</p>
+                        </div>
+                        <!-- Step 3 -->
+                        <div class="text-center w-3/4 md:w-1/4">
+                             <div class="relative mb-4 flex items-center justify-center w-16 h-16 mx-auto bg-indigo-600 text-white rounded-full text-2xl font-bold border-4 border-white shadow-md z-10">3</div>
+                             <h3 class="font-semibold text-lg">Team Formation</h3>
+                             <p class="text-sm text-slate-600">Committee connects Architects & Builders into teams.</p>
+                        </div>
+                        <!-- Step 4 -->
+                        <div class="text-center w-3/4 md:w-1/4">
+                             <div class="relative mb-4 flex items-center justify-center w-16 h-16 mx-auto bg-indigo-600 text-white rounded-full text-2xl font-bold border-4 border-white shadow-md z-10">4</div>
+                             <h3 class="font-semibold text-lg">Development</h3>
+                             <p class="text-sm text-slate-600">Teams build towards milestones (MVP, plan) with mentorship.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-16 flex justify-center">
+                    <div class="text-center p-6 bg-green-100 border-2 border-green-300 rounded-xl shadow-lg">
+                        <h3 class="text-xl font-bold text-green-800">Outcome</h3>
+                        <p class="text-green-700 mt-2 max-w-md">Successful student-led startups, commercialized products, and powerful real-world experience.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Next Steps -->
+        <div id="slide-8" class="slide">
+            <div class="slide-container">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-12 text-center">Next Steps: From Concept to Reality</h2>
+                <div class="max-w-3xl mx-auto w-full">
+                    <ol class="space-y-8">
+                        <li class="flex items-center">
+                            <div class="flex-shrink-0 bg-indigo-600 text-white rounded-full w-12 h-12 flex items-center justify-center font-bold text-2xl shadow-lg">1</div>
+                            <div class="ml-6">
+                                <h3 class="text-2xl font-semibold">Formalize Steering Committee</h3>
+                                <p class="text-slate-600 mt-1">Secure commitment from the leadership of 180DC, Makerspace, and the Internship Cell.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-center">
+                            <div class="flex-shrink-0 bg-indigo-600 text-white rounded-full w-12 h-12 flex items-center justify-center font-bold text-2xl shadow-lg">2</div>
+                            <div class="ml-6">
+                                <h3 class="text-2xl font-semibold">Define Operational Framework</h3>
+                                <p class="text-slate-600 mt-1">Draft a charter for the Innovation Nexus, outlining applications, expectations, and resource allocation.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-center">
+                            <div class="flex-shrink-0 bg-indigo-600 text-white rounded-full w-12 h-12 flex items-center justify-center font-bold text-2xl shadow-lg">3</div>
+                            <div class="ml-6">
+                                <h3 class="text-2xl font-semibold">Launch a Pilot Program</h3>
+                                <p class="text-slate-600 mt-1">Announce the initiative and accept the first cohort of ideas for the upcoming semester.</p>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+                <p class="mt-16 text-center text-xl font-bold text-slate-800">We have the talent, the vision, and the will. Let's build the ecosystem.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="fixed bottom-0 left-0 right-0 bg-white/70 backdrop-blur-sm border-t p-4 flex justify-between items-center z-50">
+        <div>
+            <span id="slide-counter" class="text-sm font-medium text-slate-600"></span>
+        </div>
+        <div class="flex items-center space-x-4">
+            <button id="prev-btn" class="nav-button px-5 py-2 bg-slate-200 text-slate-800 rounded-full font-semibold hover:bg-slate-300 disabled:opacity-50 disabled:cursor-not-allowed">Previous</button>
+            <button id="next-btn" class="nav-button px-5 py-2 bg-indigo-600 text-white rounded-full font-semibold hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed">Next</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const slideCounter = document.getElementById('slide-counter');
+            let currentSlide = 0;
+            const totalSlides = slides.length;
+
+            function updateSlideView() {
+                slides.forEach((slide) => {
+                    slide.classList.remove('active');
+                });
+                slides[currentSlide].classList.add('active');
+                slideCounter.textContent = `Slide ${currentSlide + 1} of ${totalSlides}`;
+                prevBtn.disabled = currentSlide === 0;
+                nextBtn.disabled = currentSlide === totalSlides - 1;
+            }
+
+            nextBtn.addEventListener('click', () => {
+                if (currentSlide < totalSlides - 1) {
+                    currentSlide++;
+                    updateSlideView();
+                }
+            });
+
+            prevBtn.addEventListener('click', () => {
+                if (currentSlide > 0) {
+                    currentSlide--;
+                    updateSlideView();
+                }
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight') {
+                    nextBtn.click();
+                } else if (e.key === 'ArrowLeft') {
+                    prevBtn.click();
+                }
+            });
+
+            updateSlideView();
+        });
+    </script>
+
+</body>
+</html>
